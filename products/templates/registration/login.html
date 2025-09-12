@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="{% url 'product_list' %}">MyStore</a>
+        </div>
+        <nav class="nav-links">
+            {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'view_cart' %}" class="primary-link">View Cart</a>
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}" class="primary-link">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- यह रहा वह बदलाव -->
+        <div class="form-container">
+            <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 MyStore. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

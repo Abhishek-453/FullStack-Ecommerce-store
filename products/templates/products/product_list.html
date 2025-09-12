@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="logo"><a href="{% url 'product_list' %}">MyStore</a></div>
+        <nav class="nav-links">
+            {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'view_cart' %}" class="primary-link">View Cart</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="primary-link">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Welcome to Our Store!</h1>
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                {% endif %}
+                <div class="product-info">
+                    <h3><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    <p class="product-price">₹{{ product.price }}</p>
+                    <a href="{% url 'product_detail' product.pk %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
