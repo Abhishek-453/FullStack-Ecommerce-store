@@ -39,7 +39,7 @@ Frontend
 
 - HTML5
 - CSS3
-- JavaScript
+- powershell
 
 Backend
 
